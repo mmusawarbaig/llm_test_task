@@ -13,8 +13,9 @@ The results highlight that general-purpose LLMs require domain adaptation to eff
 ## Files
 
 * `main.ipynb`: Jupyter Notebook with code, experiments, and results.
-* `GitHub_Link.txt`: Github repository link.
 * `README.md`: Brief documentation of the test task.
+* `GitHub_Link.txt`: Just contains the github repository link of this repo.
+* `.env`: For adding the Groq API Key (if needed)
 
 ## Approach
 
@@ -55,23 +56,25 @@ The results highlight that general-purpose LLMs require domain adaptation to eff
 
 ### Prompt Style Analysis
 
-I observed the highest accuracy using a **Role-Based Style Instruction Prompt**.
+The highest accuracy was observed using a **Role-Based Style Instruction Prompt**.
 
 For diverse prompt formulations using the **"llama3.1:8b"** model, with results across four different prompt styles:
 
-- **Direct Instruction Prompt Template**: 14.77% Accuracy
-- **Checklist-Style Command Prompt Template**: 13.55% Accuracy
-- **Example-Based (Few-Shot) Prompt Template**: 11.84% Accuracy
-- **Role-Based Instruction Prompt Template**: **16.12% Accuracy**
+- **Direct Instruction Prompt Template**: 13.06% Accuracy
+- **Checklist-Style Command Prompt Template**: 12.70% Accuracy
+- **Example-Based (Few-Shot) Prompt Template**: 10.99% Accuracy
+- **Role-Based Instruction Prompt Template**: **13.55% Accuracy**
 
 For diverse prompt formulations using the **"gemma3:12b"** model, with results across four different prompt styles:
 
-- **Direct Instruction Prompt Template**: 16.97% Accuracy
-- **Checklist-Style Command Prompt Template**: 14.41% Accuracy
-- **Example-Based (Few-Shot) Prompt Template**: 15.26% Accuracy
-- **Role-Based Instruction Prompt Template**: **17.34% Accuracy**
+- **Direct Instruction Prompt Template**: 15.63% Accuracy
+- **Checklist-Style Command Prompt Template**: 15.26% Accuracy
+- **Example-Based (Few-Shot) Prompt Template**: 14.41% Accuracy
+- **Role-Based Instruction Prompt Template**: **16.48% Accuracy**
 
 > 📈 **Insight:** The role-based instruction prompt has achieved the highest performance among the styles tested.
+>
+> **📝** **Note:** The different types of prompts used in the experimentation are given under the section "Classifications using LLMs" in **main.ipynb**.
 
 ### Model-Wise Overall Accuracy Comparison
 
@@ -79,34 +82,35 @@ The overall accuracy (calculated as the average of per-problem accuracies) for d
 
 | Model                                                   | Overall Accuracy |
 | ------------------------------------------------------- | ---------------- |
-| **qwen2.5:3b**                                    | 12.21%           |
-| **phi3:3.8b**                                     | 4.64%            |
-| **llama3.2:latest (3b)**                          | 14.41%           |
-| **llama3.1:8b**                                   | 16.12%           |
-| **gemma3:12b**                                    | 17.34%           |
-| **llama-3.3-70b-versatile** (from **Groq**) | 17.34%           |
+| **qwen2.5:3b**                                    | 7.69%            |
+| **phi3:3.8b**                                     | 5.98%            |
+| **llama3.2:latest (3b)**                          | 10.99%           |
+| **llama3.1:8b**                                   | 13.55%           |
+| **gemma3:12b**                                    | 16.48%           |
+| **llama-3.3-70b-versatile** (from **Groq**) | 15.63%           |
 
-> 🧠 **Note:** Accuracy improves significantly with larger and more capable models.
+> 🧠 **Note:** Excluding some exceptions, the general trend is that the Accuracy improves with larger and more capable models.
 
 ### Observations and Potential Improvements
 
-Despite testing with various LLMs — including **qwen2.5:3b**, **llama3.2:latest (3b)**, **phi3:3.8b**, **llama3.1:8b**, **gemma3:12b**, and **llama-3.3-70b** — the final results (as recorded in the above table) showed **low classification accuracy** across all models.
+Despite testing with various LLMs — including **qwen2.5:3b**, **llama3.2:latest (3b)**, **phi3:3.8b**, **llama3.1:8b**, **gemma3:12b**, and **llama-3.3-70b-versatile** (from **Groq**) — the final results (as recorded in the above table) showed **low classification accuracy** across all models.
 
 #### Key Insights:
 
 - Even state-of-the-art LLMs struggled with the specialized domain of thermodynamic problem classification.
 - This suggests that **general-purpose LLMs** may require domain-specific adaptation for better performance.
 
-* **Bigger models don't always guarantee better accuracy:** Even though **gemma3:12b** and **llama-3.3-70b-versatile** are large models, their accuracy was similar (~17.34%). This suggests that just increasing model size does not automatically improve performance for specialized tasks like thermodynamics.
+* **Bigger models don't always guarantee better accuracy:** Even though **gemma3:12b** and **llama-3.3-70b-versatile** are large models, their accuracy was similar (~16%). This suggests that just increasing model size does not automatically improve performance for specialized tasks like thermodynamics.
 * **Task-specific knowledge matters more than model size:** Without being fine-tuned on thermodynamics data, even large models perform similarly to smaller ones, showing the importance of **domain adaptation** over raw model scale.
 
 #### Future Directions for Improvement:
 
+- **Developing more advanced accuracy measurement techniques** that account for partial matches, semantic similarity, and context understanding between the predicted and ground-truth states, beyond the current strict exact-match based evaluation.
 - **Fine-tuning** the models on a curated dataset of thermodynamic problems to specialize them for this task.
 - **Enhancing prompt engineering** to better align with the complexity and structure of thermodynamic questions.
 - **Exploring additional LLMs** to identify models that may inherently align better with the problem characteristics.
 
-> 🚀 **Summary:** Tailoring the models and prompts to the domain can significantly boost accuracy for specialized tasks like thermodynamics.
+> 🚀 **Summary:** Achieving higher accuracy in specialized domains like thermodynamics requires not only tailored models and advanced prompt engineering but also smarter evaluation strategies that capture semantic understanding beyond strict matching.
 
 **Task Completed by:** [Muhammad Musawar Baig](https://www.linkedin.com/in/muhammad-musawar-baig-mmb/)
 
